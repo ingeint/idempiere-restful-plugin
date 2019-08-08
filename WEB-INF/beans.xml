@@ -24,5 +24,5 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		class="com.ingeint.ws.controller.VersionController" />
 
 	<bean id="jsonBeansProvider"
-		class="org.apache.cxf.jaxrs.provider.json.JSONProvider" />
+		class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
 </beans>
