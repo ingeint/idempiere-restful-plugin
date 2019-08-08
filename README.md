@@ -19,6 +19,8 @@ This is an example of how to create new enpoint for iDempiere and how to integra
 ## Extra Links
 - Put the documentation/links here
 
+## Adding a new endpoint
+
 ## Adding a new library
 
 Add the new dependency (`artifacItem`) to the [pom.xml](pom.xml) file in the `artifactItems` attribute, example:

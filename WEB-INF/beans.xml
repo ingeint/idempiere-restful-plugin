@@ -8,11 +8,14 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/jaxrs
 http://cxf.apache.org/schemas/jaxrs.xsd">
 
-	<jaxrs:server id="partnerService" address="/partner">
+	<jaxrs:server id="partnerService" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="partnerBean" />
+			<ref bean="versionBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
-	<bean id="partnerBean" class="com.ingeint.ws.PartnerWS" />
+	<bean id="partnerBean" class="com.ingeint.ws.controller.PartnerController" />
+	<bean id="versionBean" class="com.ingeint.ws.controller.VersionController" />
+
 </beans>
