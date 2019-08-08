@@ -26,14 +26,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.ingeint.base.BundleInfo;
+import com.ingeint.ws.presenter.Version;
 
 @Path("/version")
 public class VersionController {
-	
+
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String get() throws IOException {
-		return BundleInfo.getInstance().toString();
+	@Produces(MediaType.APPLICATION_JSON)
+	public Version get() throws IOException {
+		return new Version(BundleInfo.getInstance().getBundleName(), BundleInfo.getInstance().getBundleID(), BundleInfo.getInstance().getBundleVersion(), BundleInfo.getInstance().getBundleVendor());
 	}
-	
+
 }

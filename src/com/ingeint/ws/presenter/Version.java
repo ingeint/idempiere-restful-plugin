@@ -37,4 +37,12 @@ public class Version {
 	public void setVendor(String vendor) {
 		this.vendor = vendor;
 	}
+
+	public Version(String name, String id, String version, String vendor) {
+		this.name = name;
+		this.id = id;
+		this.version = version;
+		this.vendor = vendor;
+	}
+
 }

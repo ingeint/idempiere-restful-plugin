@@ -13,9 +13,16 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<ref bean="partnerBean" />
 			<ref bean="versionBean" />
 		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jsonBeansProvider" />
+		</jaxrs:providers>
 	</jaxrs:server>
 
-	<bean id="partnerBean" class="com.ingeint.ws.controller.PartnerController" />
-	<bean id="versionBean" class="com.ingeint.ws.controller.VersionController" />
+	<bean id="partnerBean"
+		class="com.ingeint.ws.controller.PartnerController" />
+	<bean id="versionBean"
+		class="com.ingeint.ws.controller.VersionController" />
 
+	<bean id="jsonBeansProvider"
+		class="org.apache.cxf.jaxrs.provider.json.JSONProvider" />
 </beans>
