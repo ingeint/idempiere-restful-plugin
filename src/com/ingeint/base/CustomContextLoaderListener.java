@@ -11,33 +11,23 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package com.ingeint.ws;
+package com.ingeint.base;
 
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
+import javax.servlet.ServletContextEvent;
 
-public class Activator implements BundleActivator {
+import org.springframework.web.context.ContextLoaderListener;
 
-	private static BundleContext context;
+public class CustomContextLoaderListener extends ContextLoaderListener {
 
-	static BundleContext getContext() {
-		return context;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(BundleContext bundleContext) throws Exception {
-		Activator.context = bundleContext;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 */
-	public void stop(BundleContext bundleContext) throws Exception {
-		Activator.context = null;
+	@Override
+	public void contextInitialized(ServletContextEvent event) {
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		try {
+			Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+			super.contextInitialized(event);
+		} finally {
+			Thread.currentThread().setContextClassLoader(cl);
+		}
 	}
 
 }

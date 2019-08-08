@@ -12,7 +12,7 @@
 	</context-param>
 
 	<listener>
-		<listener-class>com.ingeint.ws.CustomContextLoaderListener</listener-class>
+		<listener-class>com.ingeint.base.CustomContextLoaderListener</listener-class>
 	</listener>
 
 	<servlet>

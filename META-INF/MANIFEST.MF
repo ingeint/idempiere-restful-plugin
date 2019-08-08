@@ -1,22 +1,13 @@
 Manifest-Version: 1.0
 Bundle-Category: idempiere-plugin
 Bundle-ManifestVersion: 2
-Bundle-Name: RESTful Web Services iDempiere Plugin
+Bundle-Name: iDempiere RESTful Plugin
 Bundle-SymbolicName: com.ingeint.restful
 Bundle-Version: 6.2.0.qualifier
 Bundle-Vendor: INGEINT <https://www.ingeint.com>
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.adempiere.base,
  org.adempiere.plugin.utils,
- org.adempiere.ui.zk,
- zcommon,
- zel,
- zhtml,
- zk,
- zkbind,
- zkplus,
- zul,
- zweb,
  org.apache.servicemix.bundles.spring-web,
  org.eclipse.jetty.osgi-servlet-api,
  jakarta.ws.rs-api,
@@ -113,5 +104,5 @@ Import-Package: org.osgi.service.event,
  org.apache.xerces.xs.datatypes,
  org.apache.xml.serialize,
  org.osgi.framework
-Bundle-Activator: com.ingeint.ws.Activator
+Bundle-Activator: com.ingeint.base.CustomActivator
 Web-ContextPath: api
