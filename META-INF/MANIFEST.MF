@@ -51,7 +51,8 @@ Require-Bundle: org.adempiere.base,
  org.glassfish.hk2.locator,
  org.glassfish.hk2.utils,
  org.glassfish.jersey.bundles.repackaged.jersey-guava,
- org.springframework.spring-jcl
+ org.springframework.spring-jcl,
+ com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider
 Import-Package: javax.activation,
  javax.jws,
  javax.jws.soap,
