@@ -1,18 +1,13 @@
 package com.ingeint.ws.presenter;
 
+import com.ingeint.base.BundleInfo;
+
 public class Version {
-	private String name;
+
 	private String id;
+	private String name;
 	private String version;
 	private String vendor;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getId() {
 		return id;
@@ -20,6 +15,14 @@ public class Version {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getVersion() {
@@ -43,6 +46,10 @@ public class Version {
 		this.id = id;
 		this.version = version;
 		this.vendor = vendor;
+	}
+
+	public static Version copy(BundleInfo info) {
+		return new Version(info.getBundleName(), info.getBundleID(), info.getBundleVersion(), info.getBundleVendor());
 	}
 
 }

@@ -29,12 +29,12 @@ import com.ingeint.base.BundleInfo;
 import com.ingeint.ws.presenter.Version;
 
 @Path("/version")
+@Produces(MediaType.APPLICATION_JSON)
 public class VersionController {
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	public Version get() throws IOException {
-		return new Version(BundleInfo.getInstance().getBundleName(), BundleInfo.getInstance().getBundleID(), BundleInfo.getInstance().getBundleVersion(), BundleInfo.getInstance().getBundleVendor());
+		return Version.copy(BundleInfo.getInstance());
 	}
 
 }

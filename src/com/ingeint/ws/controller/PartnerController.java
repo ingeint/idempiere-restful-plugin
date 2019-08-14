@@ -18,39 +18,72 @@
 
 package com.ingeint.ws.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.compiere.model.MBPartner;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
+import org.compiere.util.Trx;
+
+import com.ingeint.ws.presenter.Partner;
+
 @Path("/partner")
+@Produces(MediaType.APPLICATION_JSON)
 public class PartnerController {
 
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String get() {
-		return "get";
+	@Path("/{id}")
+	public Partner get(@PathParam("id") int id) {
+		MBPartner partner = new MBPartner(Env.getCtx(), id, Trx.createTrxName());
+		
+		if (partner.get_ID() <= 0) {
+			throw new NotFoundException();
+		} 
+		
+		return Partner.copy(partner);
 	}
-	
+
+	@GET
+	public List<Partner> get() {
+		List<MBPartner> partners = new Query(Env.getCtx(), MBPartner.Table_Name, null, Trx.createTrxName()).list();
+		return partners.stream().map(partner -> Partner.copy(partner)).collect(Collectors.toList());
+	}
+
 	@PUT
-	@Produces(MediaType.TEXT_PLAIN)
 	public String put() {
 		return "put";
 	}
-	
+
 	@POST
-	@Produces(MediaType.TEXT_PLAIN)
 	public String post() {
 		return "post";
 	}
-	
+
 	@DELETE
-	@Produces(MediaType.TEXT_PLAIN)
-	public String delete() {
-		return "delete";
+	@Path("/{id}")
+	public void delete(@PathParam("id") int id) {
+		String trxName = Trx.createTrxName();
+		Trx transaction = Trx.get(trxName, true);
+
+		MBPartner partner = new MBPartner(Env.getCtx(), id, trxName);
+		if (partner.get_ID() <= 0) {
+			throw new NotFoundException();
+		}
+		partner.deleteEx(true, trxName);
+
+		transaction.commit();
+		transaction.close();
 	}
 
 }
