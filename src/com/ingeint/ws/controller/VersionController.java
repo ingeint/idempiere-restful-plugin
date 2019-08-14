@@ -25,7 +25,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ingeint.base.BundleInfo;
+import com.ingeint.ws.base.BundleInfo;
 import com.ingeint.ws.presenter.Version;
 
 @Path("/version")

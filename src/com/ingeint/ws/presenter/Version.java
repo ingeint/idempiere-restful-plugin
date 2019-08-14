@@ -1,6 +1,6 @@
 package com.ingeint.ws.presenter;
 
-import com.ingeint.base.BundleInfo;
+import com.ingeint.ws.base.BundleInfo;
 
 public class Version {
 

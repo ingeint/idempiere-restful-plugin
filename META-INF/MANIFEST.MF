@@ -101,5 +101,5 @@ Import-Package: javax.activation,
  org.apache.xerces.xs,
  org.apache.xerces.xs.datatypes,
  org.apache.xml.serialize
-Bundle-Activator: com.ingeint.base.CustomActivator
+Bundle-Activator: com.ingeint.ws.base.CustomActivator
 Web-ContextPath: api

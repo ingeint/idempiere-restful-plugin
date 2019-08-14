@@ -16,7 +16,7 @@
  * Copyright (C) 2019 INGEINT <https://www.ingeint.com> and contributors (see README.md file).
  */
 
-package com.ingeint.base;
+package com.ingeint.ws.base;
 
 import java.io.IOException;
 import java.net.URL;

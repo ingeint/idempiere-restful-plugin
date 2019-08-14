@@ -8,22 +8,20 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/jaxrs
 http://cxf.apache.org/schemas/jaxrs.xsd">
 
-	<jaxrs:server id="partnerService" address="/">
+	<jaxrs:server address="/">
 		<jaxrs:serviceBeans>
-			<ref bean="partnerBean" />
-			<ref bean="versionBean" />
+			<bean class="com.ingeint.ws.controller.PartnerController" />
+			<bean class="com.ingeint.ws.controller.VersionController" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
-			<ref bean="jsonBeansProvider" />
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
 		</jaxrs:providers>
+		<jaxrs:inInterceptors>
+			<bean class="com.ingeint.ws.interceptor.OpenTransactionInterceptor" />
+		</jaxrs:inInterceptors>
+		<jaxrs:outInterceptors>
+			<bean class="com.ingeint.ws.interceptor.CloseTransactionInterceptor" />
+		</jaxrs:outInterceptors>
 	</jaxrs:server>
-
-	<bean id="partnerBean"
-		class="com.ingeint.ws.controller.PartnerController" />
-	<bean id="versionBean"
-		class="com.ingeint.ws.controller.VersionController" />
-
-	<bean id="jsonBeansProvider"
-		class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
 
 </beans>
