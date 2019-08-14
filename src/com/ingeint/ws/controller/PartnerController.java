@@ -36,6 +36,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 
+import com.ingeint.ws.exception.InactiveRecord;
 import com.ingeint.ws.presenter.Partner;
 
 @Path("/partner")
@@ -46,17 +47,19 @@ public class PartnerController {
 	@Path("/{id}")
 	public Partner get(@PathParam("id") int id) {
 		MBPartner partner = new MBPartner(Env.getCtx(), id, Trx.createTrxName());
-		
+
 		if (partner.get_ID() <= 0) {
 			throw new NotFoundException();
-		} 
-		
+		} else if (!partner.isActive()) {
+			throw new InactiveRecord(id);
+		}
+
 		return Partner.copy(partner);
 	}
 
 	@GET
 	public List<Partner> get() {
-		List<MBPartner> partners = new Query(Env.getCtx(), MBPartner.Table_Name, null, Trx.createTrxName()).list();
+		List<MBPartner> partners = new Query(Env.getCtx(), MBPartner.Table_Name, "IsActive = ?", Trx.createTrxName()).setParameters(true).list();
 		return partners.stream().map(partner -> Partner.copy(partner)).collect(Collectors.toList());
 	}
 
