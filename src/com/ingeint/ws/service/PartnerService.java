@@ -68,7 +68,57 @@ public class PartnerService {
 		partner.deleteEx(true, trxName);
 	}
 
+	public Partner updatePartner(int id, Partner partner) {
+		String trxName = RequestEnv.getCurrentTrxName();
+		Properties ctx = RequestEnv.getCtx();
+
+		MBPartner mbPartner = new MBPartner(ctx, id, trxName);
+
+		if (mbPartner.get_ID() <= 0) {
+			throw new NotFoundException();
+		} else if (!mbPartner.isActive()) {
+			throw new InactiveRecord(id);
+		}
+
+		if (partner.getName() != null) {
+			mbPartner.setName(partner.getName());
+		}
+
+		if (partner.getValue() != null) {
+			mbPartner.setValue(partner.getValue());
+		}
+
+		if (partner.getTaxId() != null) {
+			mbPartner.setTaxID(partner.getTaxId());
+		}
+
+		if (partner.getGroupId() > 0) {
+			mbPartner.setC_BP_Group_ID(partner.getGroupId());
+		}
+
+		mbPartner.saveEx(trxName);
+
+		return createCopy(mbPartner);
+	}
+
+	public Partner createPartner(Partner partner) {
+		String trxName = RequestEnv.getCurrentTrxName();
+		Properties ctx = RequestEnv.getCtx();
+
+		MBPartner mbPartner = new MBPartner(ctx, 0, trxName);
+
+		mbPartner.setName(partner.getName());
+		mbPartner.setValue(partner.getValue());
+		mbPartner.setClientOrg(partner.getClientId(), partner.getOrgId());
+		mbPartner.setTaxID(partner.getTaxId());
+		mbPartner.setC_BP_Group_ID(partner.getGroupId());
+
+		mbPartner.saveEx(trxName);
+
+		return createCopy(mbPartner);
+	}
+
 	private Partner createCopy(MBPartner partner) {
-		return new Partner(partner.getAD_Client_ID(), partner.getAD_Org_ID(), partner.get_ID(), partner.getName(), partner.getTaxID(), partner.isActive());
+		return new Partner(partner.getAD_Client_ID(), partner.getAD_Org_ID(), partner.get_ID(), partner.getName(), partner.getValue(), partner.getTaxID(), partner.isActive(), partner.getC_BP_Group_ID());
 	}
 }

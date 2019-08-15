@@ -24,8 +24,10 @@ public class Partner {
 	private int orgId;
 	private int id;
 	private String name;
+	private String value;
 	private String taxId;
 	private boolean isActive;
+	private int groupId;
 
 	public int getClientId() {
 		return clientId;
@@ -59,6 +61,14 @@ public class Partner {
 		this.name = name;
 	}
 
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	public String getTaxId() {
 		return taxId;
 	}
@@ -75,13 +85,23 @@ public class Partner {
 		this.isActive = isActive;
 	}
 
-	public Partner(int clientId, int orgId, int id, String name, String taxId, boolean isActive) {
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+
+	public Partner(int clientId, int orgId, int id, String name, String value, String taxId, boolean isActive, int groupId) {
 		this.clientId = clientId;
 		this.orgId = orgId;
 		this.id = id;
 		this.name = name;
+		this.value = value;
 		this.taxId = taxId;
 		this.isActive = isActive;
+		this.groupId = groupId;
 	}
 
 	public Partner() {

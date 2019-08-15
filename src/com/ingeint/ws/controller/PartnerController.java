@@ -53,14 +53,14 @@ public class PartnerController {
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Partner put(Partner partner) {
-		return null;
+	public Partner put(@PathParam("id") int id, Partner partner) {
+		return partnerService.updatePartner(id, partner);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Partner post(Partner partner) {
-		return null;
+		return partnerService.createPartner(partner);
 	}
 
 	@DELETE
