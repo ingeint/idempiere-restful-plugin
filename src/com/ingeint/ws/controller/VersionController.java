@@ -34,7 +34,8 @@ public class VersionController {
 
 	@GET
 	public Version get() throws IOException {
-		return Version.copy(BundleInfo.getInstance());
+		BundleInfo info = BundleInfo.getInstance();
+		return new Version(info.getBundleName(), info.getBundleID(), info.getBundleVersion(), info.getBundleVendor());
 	}
 
 }

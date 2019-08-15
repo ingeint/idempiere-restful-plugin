@@ -20,6 +20,7 @@ package com.ingeint.ws.service;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.NotFoundException;
 
@@ -30,10 +31,11 @@ import org.compiere.util.Trx;
 
 import com.ingeint.ws.base.RequestEnv;
 import com.ingeint.ws.exception.InactiveRecord;
+import com.ingeint.ws.presenter.Partner;
 
 public class PartnerService {
 
-	public MBPartner get(int id) {
+	public Partner get(int id) {
 		String trxName = RequestEnv.getCurrentTrxName();
 		Properties ctx = RequestEnv.getCtx();
 
@@ -45,11 +47,12 @@ public class PartnerService {
 			throw new InactiveRecord(id);
 		}
 
-		return partner;
+		return createCopy(partner);
 	}
 
-	public List<MBPartner> all() {
-		return new Query(Env.getCtx(), MBPartner.Table_Name, "IsActive = ?", Trx.createTrxName()).setParameters(true).list();
+	public List<Partner> all() {
+		List<MBPartner> mbPartners = new Query(Env.getCtx(), MBPartner.Table_Name, "IsActive = ?", Trx.createTrxName()).setParameters(true).list();
+		return mbPartners.stream().map(partner -> createCopy(partner)).collect(Collectors.toList());
 	}
 
 	public void delete(int id) {
@@ -63,5 +66,9 @@ public class PartnerService {
 		}
 
 		partner.deleteEx(true, trxName);
+	}
+
+	private Partner createCopy(MBPartner partner) {
+		return new Partner(partner.getAD_Client_ID(), partner.getAD_Org_ID(), partner.get_ID(), partner.getName(), partner.getTaxID(), partner.isActive());
 	}
 }

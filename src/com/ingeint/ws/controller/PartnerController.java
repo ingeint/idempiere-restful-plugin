@@ -19,8 +19,8 @@
 package com.ingeint.ws.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -33,7 +33,7 @@ import javax.ws.rs.core.MediaType;
 import com.ingeint.ws.presenter.Partner;
 import com.ingeint.ws.service.PartnerService;
 
-@Path("/partner")
+@Path("/partners")
 @Produces(MediaType.APPLICATION_JSON)
 public class PartnerController {
 
@@ -42,22 +42,25 @@ public class PartnerController {
 	@GET
 	@Path("/{id}")
 	public Partner get(@PathParam("id") int id) {
-		return Partner.copy(partnerService.get(id));
+		return partnerService.get(id);
 	}
 
 	@GET
 	public List<Partner> get() {
-		return partnerService.all().stream().map(partner -> Partner.copy(partner)).collect(Collectors.toList());
+		return partnerService.all();
 	}
 
 	@PUT
-	public String put() {
-		return "put";
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Partner put(Partner partner) {
+		return null;
 	}
 
 	@POST
-	public String post() {
-		return "post";
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Partner post(Partner partner) {
+		return null;
 	}
 
 	@DELETE

@@ -44,4 +44,7 @@ public class ExceptionMessage {
 		this.message = message;
 	}
 
+	public ExceptionMessage() {
+	}
+
 }

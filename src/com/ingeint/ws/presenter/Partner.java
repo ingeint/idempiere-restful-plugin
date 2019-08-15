@@ -18,8 +18,6 @@
 
 package com.ingeint.ws.presenter;
 
-import org.compiere.model.MBPartner;
-
 public class Partner {
 
 	private int clientId;
@@ -86,8 +84,7 @@ public class Partner {
 		this.isActive = isActive;
 	}
 
-	public static Partner copy(MBPartner partner) {
-		return new Partner(partner.getAD_Client_ID(), partner.getAD_Org_ID(), partner.get_ID(), partner.getName(), partner.getTaxID(), partner.isActive());
+	public Partner() {
 	}
 
 }

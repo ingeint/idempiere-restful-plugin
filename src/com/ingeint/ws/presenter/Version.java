@@ -18,8 +18,6 @@
 
 package com.ingeint.ws.presenter;
 
-import com.ingeint.ws.base.BundleInfo;
-
 public class Version {
 
 	private String id;
@@ -66,8 +64,7 @@ public class Version {
 		this.vendor = vendor;
 	}
 
-	public static Version copy(BundleInfo info) {
-		return new Version(info.getBundleName(), info.getBundleID(), info.getBundleVersion(), info.getBundleVendor());
+	public Version() {
 	}
 
 }
