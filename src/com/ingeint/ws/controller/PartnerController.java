@@ -19,6 +19,7 @@
 package com.ingeint.ws.controller;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.DELETE;
@@ -36,6 +37,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 
+import com.ingeint.ws.base.RequestEnv;
 import com.ingeint.ws.exception.InactiveRecord;
 import com.ingeint.ws.presenter.Partner;
 
@@ -76,17 +78,15 @@ public class PartnerController {
 	@DELETE
 	@Path("/{id}")
 	public void delete(@PathParam("id") int id) {
-		String trxName = Trx.createTrxName();
-		Trx transaction = Trx.get(trxName, true);
+		String trxName = RequestEnv.getCurrentTrxName();
+		Properties ctx = RequestEnv.getCtx();
 
-		MBPartner partner = new MBPartner(Env.getCtx(), id, trxName);
+		MBPartner partner = new MBPartner(ctx, id, trxName);
 		if (partner.get_ID() <= 0) {
 			throw new NotFoundException();
 		}
+		
 		partner.deleteEx(true, trxName);
-
-		transaction.commit();
-		transaction.close();
 	}
 
 }
