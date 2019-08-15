@@ -19,12 +19,10 @@
 package com.ingeint.ws.controller;
 
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -32,37 +30,24 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.compiere.model.MBPartner;
-import org.compiere.model.Query;
-import org.compiere.util.Env;
-import org.compiere.util.Trx;
-
-import com.ingeint.ws.base.RequestEnv;
-import com.ingeint.ws.exception.InactiveRecord;
 import com.ingeint.ws.presenter.Partner;
+import com.ingeint.ws.service.PartnerService;
 
 @Path("/partner")
 @Produces(MediaType.APPLICATION_JSON)
 public class PartnerController {
 
+	private PartnerService partnerService = new PartnerService();
+
 	@GET
 	@Path("/{id}")
 	public Partner get(@PathParam("id") int id) {
-		MBPartner partner = new MBPartner(Env.getCtx(), id, Trx.createTrxName());
-
-		if (partner.get_ID() <= 0) {
-			throw new NotFoundException();
-		} else if (!partner.isActive()) {
-			throw new InactiveRecord(id);
-		}
-
-		return Partner.copy(partner);
+		return Partner.copy(partnerService.get(id));
 	}
 
 	@GET
 	public List<Partner> get() {
-		List<MBPartner> partners = new Query(Env.getCtx(), MBPartner.Table_Name, "IsActive = ?", Trx.createTrxName()).setParameters(true).list();
-		return partners.stream().map(partner -> Partner.copy(partner)).collect(Collectors.toList());
+		return partnerService.all().stream().map(partner -> Partner.copy(partner)).collect(Collectors.toList());
 	}
 
 	@PUT
@@ -78,15 +63,7 @@ public class PartnerController {
 	@DELETE
 	@Path("/{id}")
 	public void delete(@PathParam("id") int id) {
-		String trxName = RequestEnv.getCurrentTrxName();
-		Properties ctx = RequestEnv.getCtx();
-
-		MBPartner partner = new MBPartner(ctx, id, trxName);
-		if (partner.get_ID() <= 0) {
-			throw new NotFoundException();
-		}
-		
-		partner.deleteEx(true, trxName);
+		partnerService.delete(id);
 	}
 
 }
