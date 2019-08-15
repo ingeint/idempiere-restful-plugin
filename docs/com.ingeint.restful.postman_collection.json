@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "7b1b7c81-dd56-45ba-adb1-a7010d8dfc37",
+		"name": "com.ingeint.restful",
+		"description": "iDempiere restful collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "QueryPartner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/partners/1000000",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"partners",
+						"1000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPluginVersion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/version",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QueryAllPartner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/partners",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"partners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePartner",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/partners/1000003",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"partners",
+						"1000003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveNewPartner",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"clientId\": 11,\n    \"orgId\": 0,\n    \"name\": \"Test User\",\n    \"value\": \"TestUser\",\n    \"taxId\": null,\n    \"active\": true,\n    \"groupId\": 103\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/partners",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"partners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePartner",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Updated Test User\",\n    \"taxId\": \"1000006\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/api/partners/1000006",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"partners",
+						"1000006"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
