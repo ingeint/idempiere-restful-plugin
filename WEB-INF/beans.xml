@@ -15,6 +15,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
+			<bean class="com.ingeint.ws.base.ExceptionHandler"/>
 		</jaxrs:providers>
 		<jaxrs:inInterceptors>
 			<bean class="com.ingeint.ws.interceptor.OpenTransactionInterceptor" />

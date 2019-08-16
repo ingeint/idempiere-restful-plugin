@@ -7,6 +7,9 @@
 ## Description
 This is an example of how to create new enpoint for iDempiere and how to integrate RESTful definition. 
 
+### Apache CXF
+- https://cxf.apache.org/docs/jax-rs-data-bindings.html
+
 ## Contributors
 - Saúl Piña <saul.pina@ingeint.com>
 
