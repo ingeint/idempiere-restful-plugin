@@ -34,8 +34,7 @@ public class CloseTransactionInterceptor extends AbstractPhaseInterceptor<Messag
 
 	@Override
 	public void handleMessage(Message message) throws Fault {
-		Trx trx = Trx.get((String) message.getExchange().get(RequestEnv.TRX_NAME), false);
-		trx.commit();
+		Trx trx = Trx.get(RequestEnv.getCurrentTrxName(), false);
 		trx.close();
 	}
 
