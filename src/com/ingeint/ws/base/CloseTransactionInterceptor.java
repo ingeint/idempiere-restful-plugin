@@ -16,7 +16,7 @@
  * Copyright (C) 2019 INGEINT <https://www.ingeint.com> and contributors (see README.md file).
  */
 
-package com.ingeint.ws.interceptor;
+package com.ingeint.ws.base;
 
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
@@ -24,17 +24,16 @@ import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
 import org.compiere.util.Trx;
 
-import com.ingeint.ws.base.RequestEnv;
+public class CloseTransactionInterceptor extends AbstractPhaseInterceptor<Message> {
 
-public class OpenTransactionInterceptor extends AbstractPhaseInterceptor<Message> {
-
-	public OpenTransactionInterceptor() {
-		super(Phase.PRE_LOGICAL);
+	public CloseTransactionInterceptor() {
+		super(Phase.POST_LOGICAL);
 	}
 
 	@Override
 	public void handleMessage(Message message) throws Fault {
-		message.getExchange().put(RequestEnv.TRX_NAME, Trx.createTrxName());
+		Trx trx = Trx.get(RequestEnv.getCurrentTrxName(), false);
+		trx.close();
 	}
 
 }

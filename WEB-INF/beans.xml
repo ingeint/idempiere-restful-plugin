@@ -19,10 +19,10 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<bean class="com.ingeint.ws.base.WebApplicationExceptionHandler"/>
 		</jaxrs:providers>
 		<jaxrs:inInterceptors>
-			<bean class="com.ingeint.ws.interceptor.OpenTransactionInterceptor" />
+			<bean class="com.ingeint.ws.base.OpenTransactionInterceptor" />
 		</jaxrs:inInterceptors>
 		<jaxrs:outInterceptors>
-			<bean class="com.ingeint.ws.interceptor.CloseTransactionInterceptor" />
+			<bean class="com.ingeint.ws.base.CloseTransactionInterceptor" />
 		</jaxrs:outInterceptors>
 	</jaxrs:server>
 
