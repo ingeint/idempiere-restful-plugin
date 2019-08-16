@@ -1,28 +1,38 @@
 # RESTful Web Services iDempiere Plugin
 
 - Copyright: 2019 INGEINT <https://www.ingeint.com>
-- Repository: https://bitbucket.org/ingeint/idempiere-plugin-generator
+- Repository: https://bitbucket.org/ingeint/idempiere-restful-plugin
 - License: GPL 2
 
 ## Description
-This is an example of how to create new enpoint for iDempiere and how to integrate RESTful definition. 
+This is an example of how to create new endpoints for iDempiere and how to integrate RESTful definition. 
 
-### Apache CXF
+## Apache CXF
 - https://cxf.apache.org/docs/jax-rs-data-bindings.html
 
-## Contributors
-- Saúl Piña <saul.pina@ingeint.com>
-
-## Features/Documentation
-- Put the plugin feature list here
+## Features
+- Partner CRUD
+- Restful resources definitions (enpoint, message, http status code)
+- Json contract
+- Exceptions handlers
+- Transactions
+- Version endpoint
 
 ## Instructions
-- Put the instructions list to install here
-
-## Extra Links
-- Put the documentation/links here
+- Use the [postman](https://www.getpostman.com/) collection in [docs/com.ingeint.restful.postman_collection.json](docs/com.ingeint.restful.postman_collection.json)
+- Use `RequestEnv` to get the current transactions name and iDempiere context.
+- Use a target platform to build the bundle.
 
 ## Adding a new endpoint
+
+It's necessary to add a new bean in [WEB-INF/beans.xml](WEB-INF/beans.xml) file:
+
+```
+<jaxrs:serviceBeans>
+			<bean class="com.ingeint.ws.controller.PartnerController" />
+			<bean class="com.ingeint.ws.controller.VersionController" />
+</jaxrs:serviceBeans>
+```
 
 ## Adding a new library
 
@@ -52,7 +62,7 @@ bin.includes = .,\
                lib/
 ```
 
-Finally, add the new dependency in de [MANIFEST.MF](META-INF/MANIFEST.MF) file as a `Bundle-ClassPath` attribute, example:
+Finally, add the new dependency in [MANIFEST.MF](META-INF/MANIFEST.MF) file as a `Bundle-ClassPath` attribute, example:
 
 ```manifest
 Bundle-ClassPath: .,
