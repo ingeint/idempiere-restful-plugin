@@ -10,8 +10,10 @@ public class WebApplicationExceptionHandler implements ExceptionMapper<WebApplic
 
 	@Override
 	public Response toResponse(WebApplicationException exception) {
-		Trx trx = Trx.get(RequestEnv.getCurrentTrxName(), false);
-		trx.rollback();
+		if (RequestEnv.getCurrentTrxName() != null) {
+			Trx trx = Trx.get(RequestEnv.getCurrentTrxName(), false);
+			trx.rollback();
+		}
 		return exception.getResponse();
 	}
 

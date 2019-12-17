@@ -30,9 +30,15 @@ public class AdempiereExceptionHandler implements ExceptionMapper<AdempiereExcep
 
 	@Override
 	public Response toResponse(AdempiereException exception) {
-		Trx trx = Trx.get(RequestEnv.getCurrentTrxName(), false);
-		trx.rollback();
-		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ExceptionMessage(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), exception.getMessage())).build();
+		if (RequestEnv.getCurrentTrxName() != null) {
+			Trx trx = Trx.get(RequestEnv.getCurrentTrxName(), false);
+			trx.rollback();
+		}
+		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(createException(exception)).build();
+	}
+
+	private ExceptionMessage createException(AdempiereException exception) {
+		return new ExceptionMessage(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), exception.getMessage());
 	}
 
 }
