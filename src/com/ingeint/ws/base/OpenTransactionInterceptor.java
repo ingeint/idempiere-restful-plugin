@@ -32,7 +32,7 @@ public class OpenTransactionInterceptor extends AbstractPhaseInterceptor<Message
 
 	@Override
 	public void handleMessage(Message message) throws Fault {
-		message.getExchange().put(RequestEnv.TRX_NAME, Trx.createTrxName());
+		message.getExchange().put(RequestEnv.REQUEST_TRX_NAME_KEY, Trx.createTrxName());
 	}
 
 }

@@ -16,25 +16,28 @@
  * Copyright (C) 2019 INGEINT <https://www.ingeint.com> and contributors (see README.md file).
  */
 
-package com.ingeint.ws.presenter;
+package com.ingeint.ws.base;
 
-public class ExceptionMessage {
+import java.util.Properties;
 
-	private String message;
+import org.apache.cxf.interceptor.Fault;
+import org.apache.cxf.message.Message;
+import org.apache.cxf.phase.AbstractPhaseInterceptor;
+import org.apache.cxf.phase.Phase;
+import org.compiere.util.Env;
 
-	public ExceptionMessage() {
+public class ConfigContextInterceptor extends AbstractPhaseInterceptor<Message> {
+
+	public ConfigContextInterceptor() {
+		super(Phase.PRE_LOGICAL);
 	}
 
-	public ExceptionMessage(String message) {
-		this.message = message;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	@Override
+	public void handleMessage(Message message) throws Fault {
+		Properties ctx = new Properties();
+		ctx.put("#AD_Client_ID", "11");
+		ctx.put("#AD_Language", "es_CO");
+		Env.setCtx(ctx);
 	}
 
 }

@@ -25,10 +25,10 @@ import org.compiere.util.Env;
 
 public class RequestEnv {
 
-	public static final String TRX_NAME = "trx.name";
+	public static final String REQUEST_TRX_NAME_KEY = "trx.name";
 
 	public static String getCurrentTrxName() {
-		return (String) PhaseInterceptorChain.getCurrentMessage().getExchange().get(TRX_NAME);
+		return (String) PhaseInterceptorChain.getCurrentMessage().getExchange().get(REQUEST_TRX_NAME_KEY);
 	}
 
 	public static Properties getCtx() {

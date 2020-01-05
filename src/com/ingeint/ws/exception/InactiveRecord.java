@@ -18,6 +18,8 @@
 
 package com.ingeint.ws.exception;
 
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
+
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
@@ -28,7 +30,11 @@ public class InactiveRecord extends WebApplicationException {
 	private static final long serialVersionUID = 7309715384785125028L;
 
 	public InactiveRecord(int id) {
-		super(Response.status(Response.Status.NOT_FOUND).entity(new ExceptionMessage(Response.Status.NOT_FOUND.getStatusCode(), String.format("Record %s is inactive", id))).build());
+		super(Response.status(NOT_FOUND).entity(createEntity(id)).build());
+	}
+
+	private static ExceptionMessage createEntity(int id) {
+		return new ExceptionMessage(String.format("Record %s is inactive", id));
 	}
 
 }

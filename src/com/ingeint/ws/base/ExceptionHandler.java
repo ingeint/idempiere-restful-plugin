@@ -16,25 +16,20 @@
  * Copyright (C) 2019 INGEINT <https://www.ingeint.com> and contributors (see README.md file).
  */
 
-package com.ingeint.ws.presenter;
+package com.ingeint.ws.base;
 
-public class ExceptionMessage {
+import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 
-	private String message;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
 
-	public ExceptionMessage() {
-	}
+import com.ingeint.ws.presenter.ExceptionMessage;
 
-	public ExceptionMessage(String message) {
-		this.message = message;
-	}
+public class ExceptionHandler implements ExceptionMapper<Exception> {
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	@Override
+	public Response toResponse(Exception exception) {
+		return Response.status(INTERNAL_SERVER_ERROR).entity(new ExceptionMessage(exception.toString())).build();
 	}
 
 }

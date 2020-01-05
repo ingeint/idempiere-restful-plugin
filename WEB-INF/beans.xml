@@ -14,12 +14,14 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 			<bean class="com.ingeint.ws.controller.VersionController" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
-			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
 			<bean class="com.ingeint.ws.base.AdempiereExceptionHandler"/>
-			<bean class="com.ingeint.ws.base.WebApplicationExceptionHandler"/>
+			<bean class="com.ingeint.ws.base.ExceptionHandler"/>
+			<bean class="com.ingeint.ws.base.CustomObjectMapper"/>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
 		</jaxrs:providers>
 		<jaxrs:inInterceptors>
 			<bean class="com.ingeint.ws.base.OpenTransactionInterceptor" />
+			<bean class="com.ingeint.ws.base.ConfigContextInterceptor" />
 		</jaxrs:inInterceptors>
 		<jaxrs:outInterceptors>
 			<bean class="com.ingeint.ws.base.CloseTransactionInterceptor" />

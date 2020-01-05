@@ -16,25 +16,26 @@
  * Copyright (C) 2019 INGEINT <https://www.ingeint.com> and contributors (see README.md file).
  */
 
-package com.ingeint.ws.presenter;
+package com.ingeint.ws.base;
 
-public class ExceptionMessage {
+import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.Provider;
 
-	private String message;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-	public ExceptionMessage() {
+@Provider
+public class CustomObjectMapper implements ContextResolver<ObjectMapper> {
+	private final ObjectMapper mapper;
+
+	public CustomObjectMapper() {
+		mapper = new ObjectMapper();
+		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	}
 
-	public ExceptionMessage(String message) {
-		this.message = message;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	@Override
+	public ObjectMapper getContext(Class<?> type) {
+		return mapper;
 	}
 
 }

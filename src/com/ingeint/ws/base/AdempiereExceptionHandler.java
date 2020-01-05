@@ -18,11 +18,12 @@
 
 package com.ingeint.ws.base;
 
+import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.compiere.util.Trx;
 
 import com.ingeint.ws.presenter.ExceptionMessage;
 
@@ -30,15 +31,7 @@ public class AdempiereExceptionHandler implements ExceptionMapper<AdempiereExcep
 
 	@Override
 	public Response toResponse(AdempiereException exception) {
-		if (RequestEnv.getCurrentTrxName() != null) {
-			Trx trx = Trx.get(RequestEnv.getCurrentTrxName(), false);
-			trx.rollback();
-		}
-		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(createException(exception)).build();
-	}
-
-	private ExceptionMessage createException(AdempiereException exception) {
-		return new ExceptionMessage(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), exception.getMessage());
+		return Response.status(INTERNAL_SERVER_ERROR).entity(new ExceptionMessage(exception.getLocalizedMessage())).build();
 	}
 
 }
