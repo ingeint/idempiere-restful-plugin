@@ -20,6 +20,8 @@ package com.ingeint.ws.base;
 
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
@@ -126,6 +128,20 @@ public final class BundleInfo {
 	 */
 	private String getBundleCategory(Manifest manifest) {
 		return manifest.getMainAttributes().getValue(ATTRIBUTE_BUNDLE_CATEGORY);
+	}
+
+	/**
+	 * Gets the bundle info as a map
+	 * 
+	 * @return Bundle info as a map
+	 */
+	public static Map<String, String> toMap() {
+		Map<String, String> mapInfo = new HashMap<String, String>();
+		mapInfo.put("BundleID", getBundleID());
+		mapInfo.put("BundleVersion", getBundleVersion());
+		mapInfo.put("BundleVendor", getBundleVendor());
+		mapInfo.put("BundleName", getBundleName());
+		return mapInfo;
 	}
 
 }
